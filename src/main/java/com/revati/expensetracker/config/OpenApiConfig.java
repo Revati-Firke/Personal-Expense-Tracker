@@ -25,14 +25,16 @@ public class OpenApiConfig {
                         .description("""
                                 REST API for tracking personal expenses, monthly budgets, \
                                 spending summaries, CSV export, and no-spend streak tracking.
+
+                                Source: https://github.com/Revati-Firke/Personal-Expense-Tracker
                                 """)
                         .version("1.0.0")
                         .contact(new Contact()
                                 .name("Revati Firke")
-                                .url("https://github.com/Revati-Firke/Expense-Tracker"))
+                                .url("https://github.com/Revati-Firke/Personal-Expense-Tracker"))
                         .license(new License()
-                                .name("MIT")
-                                .url("https://opensource.org/licenses/MIT")))
+                                .name("All Rights Reserved")
+                                .url("https://github.com/Revati-Firke/Personal-Expense-Tracker/blob/main/LICENSE")))
                 .servers(List.of(
                         new Server().url("http://localhost:" + serverPort).description("Local development")
                 ));
