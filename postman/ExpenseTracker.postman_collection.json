@@ -1,0 +1,69 @@
+{
+  "info": {
+    "name": "Expense Tracker API",
+    "_postman_id": "expensetracker-collection",
+    "description": "Basic requests for Expenses and Budgets",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Expense",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"Grocery\",\n  \"amount\": 50.25,\n  \"category\": \"FOOD\",\n  \"expenseDate\": \"2024-08-01\",\n  \"recurring\": false,\n  \"note\": \"weekly groceries\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/expenses",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "expenses"]
+        }
+      }
+    },
+    {
+      "name": "List Expenses",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/expenses?year=2024&month=8",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "expenses"],
+          "query": [
+            { "key": "year", "value": "2024" },
+            { "key": "month", "value": "8" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Budget",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"year\": 2024,\n  \"month\": 8,\n  \"limitAmount\": 1000.00\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/budgets",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "budgets"]
+        }
+      }
+    },
+    {
+      "name": "Get Budget Status",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/budgets/2024/8",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "budgets", "2024", "8"]
+        }
+      }
+    }
+  ],
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:8080" }]
+}

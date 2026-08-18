@@ -62,22 +62,31 @@ A production-style **personal finance REST API** built with Spring Boot. Track e
 - Java 17+
 - Docker (for PostgreSQL)
 
-### 1. Start PostgreSQL
+### 1. Clean, start PostgreSQL, rebuild, and run
+
+```bash
+./scripts/run_project.sh
+```
+
+Skip tests during the rebuild:
+
+```bash
+./scripts/run_project.sh skip-tests
+```
+
+Wipe the local database volume and start completely fresh:
+
+```bash
+./scripts/run_project.sh --reset-db
+```
+
+`./scripts/run_local.sh` is a compatibility wrapper for the same command.
+
+### 2. Manual start (optional)
 
 ```bash
 docker compose up -d
-```
-
-### 2. Run the application
-
-```bash
 ./mvnw spring-boot:run
-```
-
-Or use the helper script:
-
-```bash
-./scripts/run_local.sh
 ```
 
 ### 3. Explore the API
@@ -100,9 +109,9 @@ Or use the helper script:
 | `POST` | `/api/v1/expenses` | Create expense |
 | `PUT` | `/api/v1/expenses/{id}` | Update expense |
 | `DELETE` | `/api/v1/expenses/{id}` | Delete expense |
-| `GET` | `/api/v1/expenses?month=7&category=FOOD` | List expenses |
-| `GET` | `/api/v1/expenses/summary?month=7` | Monthly summary |
-| `GET` | `/api/v1/expenses/export/csv?month=7` | Export CSV |
+| `GET` | `/api/v1/expenses?year=2026&month=7&category=FOOD` | List expenses |
+| `GET` | `/api/v1/expenses/summary?year=2026&month=7` | Monthly summary |
+| `GET` | `/api/v1/expenses/export/csv?year=2026&month=7` | Export CSV |
 
 ### Budgets
 
