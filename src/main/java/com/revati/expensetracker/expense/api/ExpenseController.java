@@ -42,24 +42,27 @@ public class ExpenseController {
 
     @GetMapping
     public ResponseEntity<List<ExpenseResponse>> list(
+            @RequestParam(required = false) @Min(2000) @Max(2100) Integer year,
             @RequestParam(required = false) @Min(1) @Max(12) Integer month,
             @RequestParam(required = false) CategoryType category
     ) {
-        return ResponseEntity.ok(expenseService.list(month, category));
+        return ResponseEntity.ok(expenseService.list(year, month, category));
     }
 
     @GetMapping("/summary")
     public ResponseEntity<ExpenseSummaryResponse> summary(
+            @RequestParam(required = false) @Min(2000) @Max(2100) Integer year,
             @RequestParam(required = false) @Min(1) @Max(12) Integer month
     ) {
-        return ResponseEntity.ok(expenseService.summary(month));
+        return ResponseEntity.ok(expenseService.summary(year, month));
     }
 
     @GetMapping(value = "/export/csv", produces = "text/csv")
     public ResponseEntity<byte[]> exportCsv(
+            @RequestParam(required = false) @Min(2000) @Max(2100) Integer year,
             @RequestParam(required = false) @Min(1) @Max(12) Integer month
     ) {
-        byte[] content = expenseService.exportCsv(month).getBytes(StandardCharsets.UTF_8);
+        byte[] content = expenseService.exportCsv(year, month).getBytes(StandardCharsets.UTF_8);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=expenses.csv")
                 .contentType(new MediaType("text", "csv"))

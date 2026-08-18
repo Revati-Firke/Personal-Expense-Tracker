@@ -66,10 +66,8 @@ public class ExpenseService {
     }
 
     @Transactional(readOnly = true)
-    public List<ExpenseResponse> list(Integer month, CategoryType category) {
-        YearMonth yearMonth = month == null
-                ? YearMonth.now()
-                : YearMonth.of(LocalDate.now().getYear(), month);
+    public List<ExpenseResponse> list(Integer year, Integer month, CategoryType category) {
+        YearMonth yearMonth = resolveYearMonth(year, month);
 
         LocalDate start = yearMonth.atDay(1);
         LocalDate end = yearMonth.atEndOfMonth();
@@ -82,10 +80,8 @@ public class ExpenseService {
     }
 
     @Transactional(readOnly = true)
-    public ExpenseSummaryResponse summary(Integer month) {
-        YearMonth yearMonth = month == null
-                ? YearMonth.now()
-                : YearMonth.of(LocalDate.now().getYear(), month);
+    public ExpenseSummaryResponse summary(Integer year, Integer month) {
+        YearMonth yearMonth = resolveYearMonth(year, month);
 
         LocalDate start = yearMonth.atDay(1);
         LocalDate end = yearMonth.atEndOfMonth();
@@ -115,10 +111,8 @@ public class ExpenseService {
     }
 
     @Transactional(readOnly = true)
-    public String exportCsv(Integer month) {
-        YearMonth yearMonth = month == null
-                ? YearMonth.now()
-                : YearMonth.of(LocalDate.now().getYear(), month);
+    public String exportCsv(Integer year, Integer month) {
+        YearMonth yearMonth = resolveYearMonth(year, month);
 
         LocalDate start = yearMonth.atDay(1);
         LocalDate end = yearMonth.atEndOfMonth();
@@ -137,6 +131,13 @@ public class ExpenseService {
                     .append('\n');
         }
         return csv.toString();
+    }
+
+    private YearMonth resolveYearMonth(Integer year, Integer month) {
+        YearMonth now = YearMonth.now();
+        int resolvedYear = year != null ? year : now.getYear();
+        int resolvedMonth = month != null ? month : now.getMonthValue();
+        return YearMonth.of(resolvedYear, resolvedMonth);
     }
 
     private int calculateNoSpendStreak() {

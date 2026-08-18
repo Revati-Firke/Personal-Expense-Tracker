@@ -77,11 +77,34 @@ class ExpenseServiceTest {
         when(expenseRepository.findTopByExpenseDateLessThanOrderByExpenseDateDesc(any(LocalDate.class)))
                 .thenReturn(Optional.of(Expense.builder().expenseDate(now.minusDays(2)).build()));
 
-        ExpenseSummaryResponse summary = expenseService.summary(null);
+        ExpenseSummaryResponse summary = expenseService.summary(null, null);
 
         assertThat(summary.total()).isEqualByComparingTo("100.00");
         assertThat(summary.topCategory()).isEqualTo(CategoryType.FOOD);
         assertThat(summary.noSpendStreakDays()).isEqualTo(2);
         assertThat(summary.categoryBreakdown()).hasSize(2);
+    }
+
+    @Test
+    void shouldListExpensesForProvidedYearAndMonth() {
+        LocalDate start = LocalDate.of(2024, 8, 1);
+        LocalDate end = LocalDate.of(2024, 8, 31);
+        Expense saved = Expense.builder()
+                .id(2L)
+                .description("Grocery")
+                .amount(new BigDecimal("50.25"))
+                .category(CategoryType.FOOD)
+                .expenseDate(LocalDate.of(2024, 8, 1))
+                .recurring(false)
+                .note("weekly groceries")
+                .build();
+
+        when(expenseRepository.findByExpenseDateBetweenOrderByExpenseDateDescIdDesc(start, end))
+                .thenReturn(List.of(saved));
+
+        var result = expenseService.list(2024, 8, null);
+
+        assertThat(result).hasSize(1);
+        assertThat(result.get(0).expenseDate()).isEqualTo(LocalDate.of(2024, 8, 1));
     }
 }
