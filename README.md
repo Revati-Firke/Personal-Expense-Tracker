@@ -3,11 +3,10 @@
 [![Java](https://img.shields.io/badge/Java-17-blue.svg)](https://openjdk.org/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5-green.svg)](https://spring.io/projects/spring-boot)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue.svg)](https://www.postgresql.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A production-style **personal finance REST API** built with Spring Boot. Track expenses, set monthly budgets, view spending summaries, export data to CSV, and stay motivated with a no-spend streak feature.
 
-**Repository:** [github.com/Revati-Firke/Expense-Tracker](https://github.com/Revati-Firke/Expense-Tracker)
+**Repository:** [github.com/Revati-Firke/Personal-Expense-Tracker](https://github.com/Revati-Firke/Personal-Expense-Tracker)
 
 ---
 
@@ -207,4 +206,4 @@ docker run -p 8080:8080 \
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+Copyright (c) 2026 Revati Firke. All rights reserved. This code may not be copied, modified, or reused without permission. See [LICENSE](LICENSE).
